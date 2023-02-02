@@ -94,7 +94,7 @@ async def start(client, message):
    		else:
    			await message.reply("⚠️Either i don\'t know this type of conent! or I couldn't save it.")
    	except Exception as e:
-   		await message.reply("🔰Oppss! Make sure that the channel is public and the link is starts with <b>https://</b>", parse_mode = enums.ParseMode.HTML)
+   		await message.reply("🔰Oppss! Make sure that the channel is public and the link is starts with <b>https://</b>\n🤨Btw i can\'t save the file which has size more than 2GB!", parse_mode = enums.ParseMode.HTML)
    
 print("Started")   
 app.run()   
