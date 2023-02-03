@@ -9,7 +9,7 @@ from pymongo import MongoClient
 
 client = MongoClient("mongodb+srv://really651:K4vSnRMEsZhqsTqS@cluster0.pxc2foz.mongodb.net/?retryWrites=true&w=majority")
 
-db = client["Products"]
+db = client["Productsdb"]
 collection = db["coll"]
 
 api_id = 11855414
