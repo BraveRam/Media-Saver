@@ -48,8 +48,8 @@ async def start(client, message):
     user = collection.find_one({'user_id': chat_id})
     if user and 'bonus_time' in user:
         bonus_time = user['bonus_time']
-        if now - bonus_time < datetime.timedelta(hours=24):
-            await app.send_message(chat_id, '🙂You have to wait 5 minutes in order to send another task!')
+        if now - bonus_time < datetime.timedelta(minutes=10):
+            await app.send_message(chat_id, '🙂You have to wait 10 minutes in order to send another task!')
             return
         else:
             collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
