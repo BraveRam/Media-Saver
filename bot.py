@@ -60,10 +60,10 @@ async def start(client, message):
             			d = a.audio.file_id
             			f = a.audio.file_name
             			det = await message.reply("♻️Wait a moment...")
+            			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
             			c = await app.download_media(d)
             			await app.send_audio(message.chat.id, c, file_name = f)
-            			await app.delete_messages(message.from_user.id, det.id)
-            			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+            			await app.delete_messages(message.from_user.id, det.id)         			
             			return
             		if a.poll:
             			await message.reply("🙁For Now I don\'t Save Quiz & Poll!")
@@ -75,10 +75,10 @@ async def start(client, message):
             			cap = a.caption
             			f = a.video.file_name
             			det = await message.reply("♻️Wait a moment...")
+            			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
             			c = await app.download_media(d)
             			await app.send_video(message.chat.id, c, caption = cap, file_name = f)
-            			await app.delete_messages(message.from_user.id, det.id)
-            			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+            			await app.delete_messages(message.from_user.id, det.id)           			
             		elif a.photo:
             			d = a.photo.file_id
             			cap = a.caption
@@ -91,10 +91,10 @@ async def start(client, message):
             			cap = a.caption
             			f = a.document.file_name
             			det2 = await message.reply("♻️Wait a moment...")
+            			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
             			c = await app.download_media(d)
             			await app.send_document(message.chat.id, c, caption = cap, file_name = f)
-            			await app.delete_messages(message.from_user.id, det2.id)
-            			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+            			await app.delete_messages(message.from_user.id, det2.id)         			
             		else:
             			await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")
             	except Exception as e:
@@ -113,10 +113,10 @@ async def start(client, message):
             		d = a.audio.file_id
             		f = a.audio.file_name
             		det = await message.reply("♻️Wait a moment...")
+            		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
             		c = await app.download_media(d)
             		await app.send_audio(message.chat.id, c, file_name = f)
-            		await app.delete_messages(message.from_user.id, det.id)
-            		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+            		await app.delete_messages(message.from_user.id, det.id)            		
             		return
             	if a.poll:
             		await message.reply("🙁For Now I don\'t Save Quiz & Poll!")
@@ -128,14 +128,15 @@ async def start(client, message):
             		cap = a.caption
             		f = a.video.file_name
             		det = await message.reply("♻️Wait a moment...")
+            		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
             		c = await app.download_media(d)
             		await app.send_video(message.chat.id, c, caption = cap, file_name = f)
-            		await app.delete_messages(message.from_user.id, det.id)
-            		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+            		await app.delete_messages(message.from_user.id, det.id)           		
             	elif a.photo:
             		d = a.photo.file_id
             		cap = a.caption
             		det1 = await message.reply("♻️Wait a moment...")
+            		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
             		c = await app.download_media(d)
             		await app.send_photo(message.chat.id, c, caption = cap)
             		await app.delete_messages(message.from_user.id, det1.id)
@@ -144,10 +145,10 @@ async def start(client, message):
             		cap = a.caption
             		f = a.document.file_name
             		det2 = await message.reply("♻️Wait a moment...")
+            		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
             		c = await app.download_media(d)
             		await app.send_document(message.chat.id, c, caption = cap, file_name = f)
-            		await app.delete_messages(message.from_user.id, det2.id)
-            		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+            		await app.delete_messages(message.from_user.id, det2.id)            		
             	else:
             		await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")
             except Exception as e:
