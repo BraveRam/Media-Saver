@@ -23,7 +23,7 @@ bot_token = "5624770835:AAEyK318nLW7PlVGWsezEYYNnBgCNJL4P40"
 
 @app.on_message(filters.command("start"))
 async def strf(client, message):
-		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel and Group</b>.\n\n✍️Send /save to save restricted content✨", parse_mode = enums.ParseMode.HTML)
+		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel! Even upto 4GB file!</b>.\n\n✍️Just Send me the link of Message✨", parse_mode = enums.ParseMode.HTML)
 
 async def send(client, message):
 	now = datetime.datetime.now()
@@ -38,6 +38,7 @@ async def send(client, message):
 		if a.photo:
 			await app.send_photo(message.chat.id, a.photo.file_id, caption = message.caption)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+			return 
 		if a.document:
 			text =""
 			size = float(a.document.file_size/1024/1024)
@@ -47,11 +48,13 @@ async def send(client, message):
 			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
 			i2 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
 			time.sleep(5)
-			await app.send_document(message.chat.id, a.document.file_id, caption = f"{a.caption}\n\n💾File Size: {text}")
+			await app.send_document(message.chat.id, a.document.file_id, caption = a.caption)		
 			await app.delete_messages(message.chat.id, i2.id)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+			return 
 		if a.poll:
 			await message.reply("🤨For Now I Don\'t Support Poll!")
+			return 
 		if a.video:
 			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
 			i1 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
@@ -59,18 +62,16 @@ async def send(client, message):
 			await app.send_video(message.chat.id, a.video.file_id, caption = message.caption)
 			await app.delete_messages(message.chat.id, i1.id)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+			return 
 		if a.text:
 			await message.reply(a.text)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Text! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+			return 
 		else:
-			await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")
+			await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")			
 	except Exception as e:
 		await message.reply("🔰Oppss! Make sure that the channel is public and the link is starts with <b>https://</b>", parse_mode = enums.ParseMode.HTML)
 		await message.reply(e)
-
-@app.on_message(filters.command("start"))
-async def strf(client, message):
-		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel and Group</b>.\n\n✍️Send /save to save restricted content✨", parse_mode = enums.ParseMode.HTML)
 
 @app.on_message()
 async def down(client, message):
@@ -80,7 +81,8 @@ async def down(client, message):
 	if user and 'bonus_time' in user:
 		bonus_time = user['bonus_time']
 		if now - bonus_time < datetime.timedelta(minutes=1):
-			await app.send_message(chat_id, '🙂You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')			
+			await app.send_message(chat_id, '🙂You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')
+			return 			
 		else:
 			await send(client, message)
 	else:
