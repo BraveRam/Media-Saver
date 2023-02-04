@@ -62,21 +62,22 @@ async def send(client, message):
 @app.on_message(filters.command("start"))
 async def strf(client, message):
 		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel and Group</b>.\n\n✍️Send /save to save restricted content✨", parse_mode = enums.ParseMode.HTML)
-		
+
 @app.on_message()
-async def dwo(client, message):
+async def down(client, message):
 	chat_id = message.chat.id 
 	now = datetime.datetime.now()
 	user = collection.find_one({'user_id': chat_id})
 	if user and 'bonus_time' in user:
-	       bonus_time = user['bonus_time']
-	       if now - bonus_time < datetime.timedelta(minutes=1):
-	           await app.send_message(chat_id, '🙂You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')
-	           return
-	       else:
-	       	send(client, message)
+		bonus_time = user['bonus_time']
+		if now - bonus_time < datetime.timedelta(minutes=1):
+			await app.send_message(chat_id, '🙂You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')
+			return
+		else:
+			send(client, message)
 	else:
 		send(client, message)
+
 
 print("Successful")
 app.run()
