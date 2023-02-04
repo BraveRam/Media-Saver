@@ -21,7 +21,7 @@ api_hash = "71449899c824b5bc9a91d8a52b20c5f3",
 bot_token = "5624770835:AAEyK318nLW7PlVGWsezEYYNnBgCNJL4P40"
 )
 
-def send(client, message):
+async def send(client, message):
 	s = str(message.text[13:])
 	m = s.split("/")[0]
 	s1 = f"@{m}"
@@ -57,7 +57,7 @@ def send(client, message):
 
 @app.on_message(filters.command("start"))
 async def strf(client, message):
-	await message.reply("Heya Bro")
+		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel and Group</b>.\n\n✍️Send /save to save restricted content✨", parse_mode = enums.ParseMode.HTML)
 		
 @app.on_message()
 async def dwo(client, message):
@@ -72,7 +72,7 @@ async def dwo(client, message):
 	       else:
 	       	send(client, message)
 	else:
-     	send(client, message)
+		send(client, message)
 
 print("Successful")
 app.run()
