@@ -26,6 +26,7 @@ async def strf(client, message):
 		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel and Group</b>.\n\n✍️Send /save to save restricted content✨", parse_mode = enums.ParseMode.HTML)
 
 async def send(client, message):
+	chat_id = message.chat.id 
 	s = str(message.text[13:])
 	m = s.split("/")[0]
 	s1 = f"@{m}"
