@@ -30,34 +30,40 @@ async def send(client, message):
 	m = s.split("/")[0]
 	s1 = f"@{m}"
 	m1 = s.split("/")[1]
-	a = await app.get_messages(s1, int(m1))	
-	if a.photo:
-		await app.send_photo(message.chat.id, a.photo.file_id, caption = message.caption)
-		await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
-	if a.document:		
-		text =""
-		size = float(a.document.file_size/1024/1024)
-		flor = math.floor(size)
-		text+=f"{flor}"
-		text+=f"MB"
-		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
-		i2 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
-		time.sleep(5)
-		await app.send_document(message.chat.id, a.document.file_id, caption = f"{a.caption}\n\n💾File Size: {text}")
-		await app.delete_messages(message.chat.id, i2.id)
-		await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
-	if a.poll:
-		await message.reply("🤨For Now I Don\'t Support Poll!")
-	if a.video:
-		collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
-		i1 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
-		time.sleep(5)
-		await app.send_video(message.chat.id, a.video.file_id, caption = message.caption)
-		await app.delete_messages(message.chat.id, i1.id)
-		await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
-	if a.text:
-		await message.reply(a.text)
-		await message.reply("<b>🔥Hurray! I\'ve successfully saved your Text! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+	a = await app.get_messages(s1, int(m1))
+	try:
+		if a.photo:
+			await app.send_photo(message.chat.id, a.photo.file_id, caption = message.caption)
+			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+		if a.document:
+			text =""
+			size = float(a.document.file_size/1024/1024)
+			flor = math.floor(size)
+			text+=f"{flor}"
+			text+=f"MB"
+			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+			i2 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
+			time.sleep(5)
+			await app.send_document(message.chat.id, a.document.file_id, caption = f"{a.caption}\n\n💾File Size: {text}")
+			await app.delete_messages(message.chat.id, i2.id)
+			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+		if a.poll:
+			await message.reply("🤨For Now I Don\'t Support Poll!")
+		if a.video:
+			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
+			i1 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
+			time.sleep(5)
+			await app.send_video(message.chat.id, a.video.file_id, caption = message.caption)
+			await app.delete_messages(message.chat.id, i1.id)
+			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+		if a.text:
+			await message.reply(a.text)
+			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Text! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+		else:
+			await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")
+	except Exception as e:
+		await message.reply("🔰Oppss! Make sure that the channel is public and the link is starts with <b>https://</b>", parse_mode = enums.ParseMode.HTML)
+		await message.reply(e)
 
 @app.on_message(filters.command("start"))
 async def strf(client, message):
@@ -71,8 +77,7 @@ async def down(client, message):
 	if user and 'bonus_time' in user:
 		bonus_time = user['bonus_time']
 		if now - bonus_time < datetime.timedelta(minutes=1):
-			await app.send_message(chat_id, '🙂You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')
-			return
+			await app.send_message(chat_id, '🙂You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')			
 		else:
 			send(client, message)
 	else:
