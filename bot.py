@@ -79,9 +79,9 @@ async def down(client, message):
 		if now - bonus_time < datetime.timedelta(minutes=1):
 			await app.send_message(chat_id, '🙂You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')			
 		else:
-			send(client, message)
+			await send(client, message)
 	else:
-		send(client, message)
+		await send(client, message)
 
 
 print("Successful")
