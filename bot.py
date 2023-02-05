@@ -104,11 +104,13 @@ async def send(client, message):
 		if a.audio:
 			await app.send_audio(message.chat.id, a.audio.file_id, caption = message.caption)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+			return 
 		if a.voice:
 			await app.send_voice(message.chat.id, a.voice.file_id, caption = message.caption)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+			return 
 		else:
-			await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")			
+			await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")
 	except Exception as e:
 		await message.reply("🔰Oppss! Make sure that the channel is public and the link is starts with <b>https://</b>", parse_mode = enums.ParseMode.HTML)	
 
