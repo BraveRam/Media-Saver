@@ -52,7 +52,8 @@ async def checking(client, message):
 	try:
 		a = await app.get_chat_member("@DevelopersPage", message.from_user.id).status 
 		return True 
-	except:
+	except Exception as e:
+		await message.reply(e)
 		return False
 
 @app.on_message(filters.command("start"))
@@ -65,11 +66,11 @@ join = InlineKeyboardMarkup([
 
 async def send(client, message):
 	check = await checking(client, message)
-	if check != True:
-		await message.reply("⚠️Dude in order to use this bot you must be a member of our channel!\nJoin and try again♻️", reply_markup = join)
-		return 
+	if check == True:
+		pass	 
 	else:
-		pass
+		await message.reply("⚠️Dude in order to use this bot you must be a member of our channel!\nJoin and try again♻️", reply_markup = join)
+		return
 	now = datetime.datetime.now()
 	chat_id = message.chat.id 
 	user = collection.find_one({'user_id': chat_id})
