@@ -18,7 +18,7 @@ app = Client(
 "uploadbot1",
 api_id = 11855414,
 api_hash = "71449899c824b5bc9a91d8a52b20c5f3",
-bot_token = "5624770835:AAEyK318nLW7PlVGWsezEYYNnBgCNJL4P40"
+bot_token = "5624770835:AAGEUrV9kMXHHq8-VTjS_3Oeobnr9hsmRsM"
 )
 
 help = """<u>    ⚪HELP SECTION</u>
