@@ -53,7 +53,7 @@ async def checking(client, message):
 		a = await app.get_chat_member("@DevelopersPage", message.from_user.id)
 		return True 
 	except Exception as e:
-		await message.reply(e)
+		#await message.reply(e)
 		return False
 
 @app.on_message(filters.command("start"))
