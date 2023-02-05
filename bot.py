@@ -50,7 +50,7 @@ async def ans(client, callback):
 
 async def checking(client, message):
 	try:
-		a = await app.get_chat_member("@channel", message.from_user.id).status 
+		a = await app.get_chat_member("@DevelopersPage", message.from_user.id).status 
 		return True 
 	except:
 		return False
@@ -59,7 +59,17 @@ async def checking(client, message):
 async def strf(client, message):
 		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel! Even upto 4GB file!</b>\n\n✍️Just Send me the link of the message🤩", parse_mode = enums.ParseMode.HTML, reply_markup = key)
 
+join = InlineKeyboardMarkup([
+[InlineKeyboardButton(text ="🔂Join The Channel", url="t.me/developerspage")]
+])
+
 async def send(client, message):
+	check = await checking(client, message)
+	if check != True:
+		await message.reply("⚠️Dude in order to use this bot you must be a member of our channel!\nJoin and try again♻️", reply_markup = join)
+		return 
+	else:
+		pass
 	now = datetime.datetime.now()
 	chat_id = message.chat.id 
 	user = collection.find_one({'user_id': chat_id})
