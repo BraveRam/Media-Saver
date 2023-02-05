@@ -102,7 +102,11 @@ async def send(client, message):
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Text! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
 			return
 		if a.audio:
-			await app.send_video(message.chat.id, a.audio.file_id, caption = message.caption)
+			await app.send_audio(message.chat.id, a.audio.file_id, caption = message.caption)
+			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Text! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
+			return 
+		if a.voice:
+			await app.send_voice(message.chat.id, a.voice.file_id, caption = message.caption)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Text! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
 			return 
 		else:
