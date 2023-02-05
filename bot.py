@@ -2,12 +2,9 @@ import pyrogram
 from pyrogram import Client, filters, idle
 from pyrogram.types import *
 from pyrogram import enums
-import datetime
 import pymongo
 from pymongo import MongoClient
-import math
-from math import *
-import time
+
 
 client = MongoClient("mongodb+srv://really651:K4vSnRMEsZhqsTqS@cluster0.pxc2foz.mongodb.net/?retryWrites=true&w=majority")
 
@@ -70,16 +67,14 @@ join = InlineKeyboardMarkup([
 [InlineKeyboardButton(text ="🔂Join The Channel", url="t.me/developerspage")]
 ])
 
+@app.on_message()
 async def send(client, message):
 	check = await checking(client, message)
 	if check == True:
 		pass	 
 	else:
 		await message.reply("⚠️Dude in order to use this bot you must be a member of our channel!\nJoin and try again♻️", reply_markup = join)
-		return
-	now = datetime.datetime.now()
-	chat_id = message.chat.id 
-	user = collection.find_one({'user_id': chat_id})
+		return	
 	s = str(message.text[13:])
 	m = s.split("/")[0]
 	s1 = f"@{m}"
@@ -90,28 +85,15 @@ async def send(client, message):
 			await app.send_photo(message.chat.id, a.photo.file_id, caption = message.caption)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
 			return 
-		if a.document:
-			text =""
-			size = float(a.document.file_size/1024/1024)
-			flor = math.floor(size)
-			text+=f"{flor}"
-			text+=f"MB"
-			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
-			i2 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
-			time.sleep(5)
-			await app.send_document(message.chat.id, a.document.file_id, caption = a.caption)		
-			await app.delete_messages(message.chat.id, i2.id)
+		if a.document:				
+			await app.send_document(message.chat.id, a.document.file_id, caption = a.caption)	
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
 			return 
 		if a.poll:
 			await message.reply("🤨For Now I Don\'t Support Poll!")
 			return 
-		if a.video:
-			collection.update_one({'user_id': chat_id}, {'$set': {'bonus_time': now}})
-			i1 = await message.reply("🤩Don\'t rush dude! Just only 5 seconds⌚")
-			time.sleep(5)
-			await app.send_video(message.chat.id, a.video.file_id, caption = message.caption)
-			await app.delete_messages(message.chat.id, i1.id)
+		if a.video:						
+			await app.send_video(message.chat.id, a.video.file_id, caption = message.caption)			
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
 			return 
 		if a.text:
@@ -130,22 +112,7 @@ async def send(client, message):
 			await message.reply("⚠️Either i don\'t know this type of content! or I couldn't save it.")
 	except Exception as e:
 		await message.reply("🔰Oppss! Make sure that the channel is public and the link is starts with <b>https://</b>", parse_mode = enums.ParseMode.HTML)	
-
-@app.on_message()
-async def down(client, message):
-	chat_id = message.chat.id 
-	now = datetime.datetime.now()
-	user = collection.find_one({'user_id': chat_id})
-	if user and 'bonus_time' in user:
-		bonus_time = user['bonus_time']
-		if now - bonus_time < datetime.timedelta(minutes=1):
-			await app.send_message(chat_id, '⌚You have to wait 1 minute in order to send another task! 😏Don\'t disturb me!😊')
-			return 			
-		else:
-			await send(client, message)
-	else:
-		await send(client, message)
-
+	
 
 print("Successful")
 app.run()
