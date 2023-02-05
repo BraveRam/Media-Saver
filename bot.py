@@ -58,7 +58,13 @@ async def checking(client, message):
 
 @app.on_message(filters.command("start"))
 async def strf(client, message):
-		await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel! Even upto 4GB file!</b>\n\n✍️Just Send me the link of the message🤩", parse_mode = enums.ParseMode.HTML, reply_markup = key)
+		chat_id = message.chat.id 
+		user = collection.find_one({"user_id": chat_id})
+		if user:
+			await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel! Even upto 4GB file!</b>\n\n✍️Just Send me the link of the message🤩", parse_mode = enums.ParseMode.HTML, reply_markup = key)
+		else:
+			collection.insert_one({"user_id": chat_id})
+			await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel! Even upto 4GB file!</b>\n\n✍️Just Send me the link of the message🤩", parse_mode = enums.ParseMode.HTML, reply_markup = key)
 
 join = InlineKeyboardMarkup([
 [InlineKeyboardButton(text ="🔂Join The Channel", url="t.me/developerspage")]
