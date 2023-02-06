@@ -74,13 +74,13 @@ async def send(client, message):
 		pass	 
 	else:
 		await message.reply("⚠️Dude in order to use this bot you must be a member of our channel!\nJoin and try again♻️", reply_markup = join)
-		return	
-	s = str(message.text[13:])
-	m = s.split("/")[0]
-	s1 = f"@{m}"
-	m1 = s.split("/")[1]
-	a = await app.get_messages(s1, int(m1))
+		return
 	try:
+		s = str(message.text[13:])
+		m = s.split("/")[0]
+		s1 = f"@{m}"
+		m1 = s.split("/")[1]
+		a = await app.get_messages(s1, int(m1))	
 		if a.photo:
 			await app.send_photo(message.chat.id, a.photo.file_id, caption = message.caption)
 			await message.reply("<b>🔥Hurray! I\'ve successfully saved your Media! Enjoy🤩</b>", parse_mode = enums.ParseMode.HTML)
