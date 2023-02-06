@@ -53,7 +53,7 @@ async def checking(client, message):
 		#await message.reply(e)
 		return False
 
-@app.on_message(filters.command("start"))
+@app.on_message(filters.command("start") | filters.text)
 async def strf(client, message):
 		chat_id = message.chat.id 
 		user = collection.find_one({"user_id": chat_id})
