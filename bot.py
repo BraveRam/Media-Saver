@@ -67,7 +67,7 @@ join = InlineKeyboardMarkup([
 [InlineKeyboardButton(text ="🔂Join The Channel", url="t.me/developerspage")]
 ])
 
-@app.on_message()
+@app.on_message(filters.regex("http"))
 async def send(client, message):
 	check = await checking(client, message)
 	if check == True:
