@@ -38,6 +38,89 @@ back = InlineKeyboardMarkup([
 [InlineKeyboardButton(text ="🔙Back", callback_data ="back")]
 ])
 
+
+#adding inline download or saving option 
+@app.on_inline_query()
+async def inline(c , q):
+    query = q.query 
+    sp = query.split("/")
+    mid = sp[-1]
+    chan = sp[-2]
+    print (query , chan , mid)  
+    a = await app.get_messages(chan , int(mid))
+    if a.photo:
+        await q.answer( results = [
+        ( InlineQueryResultCachedPhoto(
+        photo_file_id=a.photo.file_id,
+        title = "Restricted Content",
+        description ="Downloading",
+        caption = a.caption, 
+    reply_markup = InlineKeyboardMarkup(
+    [[InlineKeyboardButton(
+    "Join Us🤗", url="https://t.me/developerspage")]])
+    ))])
+    
+    if a.document:				
+        await q.answer( results = [
+        ( InlineQueryResultCachedDocument(
+        document_file_id=a.document.file_id,
+        title = "Restricted Content",
+        description ="Downloading",
+        caption = a.caption, 
+    reply_markup = InlineKeyboardMarkup(
+    [[InlineKeyboardButton(
+    "Join Us🤗", url="https://t.me/developerspage")]])
+    ))])
+		
+    if a.video:						
+        await q.answer( results = [
+        ( InlineQueryResultCachedVideo(
+        video_file_id = a.video.file_id,
+        title = "Restricted Content",
+        description ="Downloading",
+        caption = a.caption, 
+    reply_markup = InlineKeyboardMarkup(
+    [[InlineKeyboardButton(
+    "Join Us🤗", url="https://t.me/developerspage")]])
+    ))])
+    if a.text:
+        await q.answer( results = [ ( InlineQueryResultArticle(
+        title = " Restricted content ",
+        description ="text message ",
+        input_message_content = InputTextMessageContent(a.text) ,
+        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Join us🤗", url="https://t.me/developerspage")]])
+		    ))])
+    if a.audio:
+        await q.answer( results = [
+        ( InlineQueryResultCachedAudio(
+        audio_file_id=a.audio.file_id,
+        title = "Restricted Content",
+        description ="Downloading",
+        caption = a.caption, 
+    reply_markup = InlineKeyboardMarkup(
+    [[InlineKeyboardButton(
+    "Join Us🤗", url="https://t.me/developerspage")]])
+    ))])
+    if a.voice:
+        await q.answer( results = [
+        ( InlineQueryResultCachedVoice(
+        voice_file_id=a.voice.file_id,
+        title = "Restricted Content",
+        caption = a.caption, 
+    reply_markup = InlineKeyboardMarkup(
+    [[InlineKeyboardButton(
+    "Join Us🤗", url="https://t.me/developerspage")]])
+    ))])
+    else :
+        await q.answer( results = [ ( InlineQueryResultArticle(
+        title = " Link Required ",
+        description ="Pls provide public channel or group link",
+        input_message_content = InputTextMessageContent("**need help 🤔**\nstart the bot in private") ,
+        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Join us🤗", url="https://t.me/developerspage")]])
+		    ))])
+ 
+    
+	
 @app.on_callback_query()
 async def ans(client, callback):
 	if callback.data =="help":
