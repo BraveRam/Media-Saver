@@ -130,7 +130,7 @@ async def ans(client, callback):
 
 async def checking(client, message):
 	try:
-		a = await app.get_chat_member("@DevelopersPage", message.from_user.id)
+		a = await app.get_chat_member("@neuralp", message.from_user.id)
 		return True 
 	except Exception as e:
 		#await message.reply(e)
