@@ -26,11 +26,11 @@ help = """<u>    ⚪HELP SECTION</u>
 
 🤨However there is limit while sending video and documents. but thats not bad and there is no limit with other contents✨
 
-🛠 If you get bug/issues report us @Developerschat 👥</b>
+🛠 If you get bug/issues report us @Neuralg 👥</b>
 """
 
 key = InlineKeyboardMarkup([
-[InlineKeyboardButton(text ="🌀Project Channel", url="t.me/DevelopersPage"), InlineKeyboardButton(text ="⚙️Support Group", url = "t.me/developerschat")],
+[InlineKeyboardButton(text ="🌀Project Channel", url="t.me/Neuralp"), InlineKeyboardButton(text ="⚙️Support Group", url = "t.me/Neuralg")],
 [InlineKeyboardButton(text ="🤔 Help 🗞", callback_data ="help"), InlineKeyboardButton(text ="✍️ Developer 🔍", user_id = 1365625365)]
 ])
 
@@ -147,7 +147,7 @@ async def strf(client, message):
 			await message.reply(f"👋Hello {message.from_user.mention} \n\nWelcome Save Restricted Messages bot. This bot can help you to save restricted content from <b>public channel! Even upto 4GB file!</b>\n\n✍️Just Send me the link of the message🤩", parse_mode = enums.ParseMode.HTML, reply_markup = key)
 
 join = InlineKeyboardMarkup([
-[InlineKeyboardButton(text ="🔂Join The Channel", url="t.me/developerspage")]
+[InlineKeyboardButton(text ="🔂Join The Channel", url="t.me/Neuralp")]
 ])
 
 @app.on_message(filters.regex("http"))
