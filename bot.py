@@ -6,7 +6,7 @@ import pymongo
 from pymongo import MongoClient
 
 
-client = MongoClient("mongodb+srv://really651:K4vSnRMEsZhqsTqS@cluster0.pxc2foz.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://really651:gSPMW6u9WuStXIwD@cluster0.pxc2foz.mongodb.net/?retryWrites=true&w=majority")
 
 db = client["Productsdb"]
 collection = db["coll"]
